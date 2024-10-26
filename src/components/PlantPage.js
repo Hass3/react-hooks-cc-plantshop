@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
-
+import UpdatePrice from "./UpdatePrice";
 function PlantPage() {
   const [plants, setPlants] = useState([]);
   const [filteredPlants, setFilteredPlants] = useState([]);
-
+  const [newPrice, setNewPrice] = useState('')
+  const [plantId, setPlantId] = useState()
   useEffect(() => {
     fetch("http://localhost:6001/plants")
       .then(r => r.json())
@@ -36,14 +37,26 @@ function PlantPage() {
     setPlants(deletedPlant)
     setFilteredPlants(deletedPlant)
   }
-
-
+  
+  function onUpdate(newPrice){
+    const updatedPlants = plants.map((plant)=>{
+      if(plant.id === newPrice.id){
+        return newPrice
+      }
+      else{
+        return plant
+      }
+    })
+    setPlants(updatedPlants)
+    setFilteredPlants(updatedPlants)
+  }
 
   return (
     <main>
       <NewPlantForm onAddPlant={addPlant} />
       <Search onSearch={onSearch} />
-      <PlantList plants={plants} onDel={onDelete} />
+      <UpdatePrice price = {newPrice} setNewPrice ={setNewPrice} plantId = {plantId} onUpdate={onUpdate} />
+      <PlantList plants={plants} onDel={onDelete} setPrice={setNewPrice} setPlantId={setPlantId} />
     </main>
   );
 }

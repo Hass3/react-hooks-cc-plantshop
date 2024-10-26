@@ -1,6 +1,6 @@
 import React, {useState}  from "react";
 
-function PlantCard({plant, onDel}) {
+function PlantCard({plant, onDel, setPrice, setPlantId}) {
   const [stock, setStock] = useState(false)
 
   function handleDelete(){
@@ -11,8 +11,13 @@ function PlantCard({plant, onDel}) {
     .then(()=>onDel(plant))
   }
 
+  function handlePriceChange(){
+    setPrice(plant.price)
+    setPlantId(plant.id)
+  }
 
   return (
+    
     <li className="card" data-testid="plant-item">
       <img src={plant.image} alt={plant.name} />
       <h4>{plant.name}</h4>
@@ -20,6 +25,7 @@ function PlantCard({plant, onDel}) {
   
         <button onClick={()=> setStock(stock=>!stock)} className={!stock?"primary": ""}>{!stock ?"In Stock" : "Out of Stock"}</button>
         <button onClick={handleDelete} style={{background: "red"}}>Delete</button>
+        <button onClick={handlePriceChange}>Change Price</button>
     </li>
   );
 }
