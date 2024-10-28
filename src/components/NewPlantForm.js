@@ -4,7 +4,7 @@ function NewPlantForm({onAddPlant}) {
   const [nameInput , setNameInput]= useState("");
   const [imgInput,setImgInput] = useState("");
   const [priceInput, setPriceInput]= useState('');
-
+  
   function handleSubmit(e){
     e.preventDefault();
     const newPlant= {
@@ -23,6 +23,8 @@ function NewPlantForm({onAddPlant}) {
     setImgInput('');
     setPriceInput('');
   }
+ 
+
 
   return (
     <div className="new-plant-form">

@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
-import UpdatePrice from "./UpdatePrice";
+
 function PlantPage() {
   const [plants, setPlants] = useState([]);
   const [searched, setSearched]= useState('');
-  const [newPrice, setNewPrice] = useState('')
-  const [plantId, setPlantId] = useState()
 
   useEffect(() => {
     fetch("http://localhost:6001/plants")
@@ -48,8 +46,7 @@ function PlantPage() {
     <main>
       <NewPlantForm onAddPlant={addPlant} />
       <Search onSearch={onSearch} />
-      <UpdatePrice price = {newPrice} setNewPrice ={setNewPrice} plantId = {plantId} onUpdate={onUpdate} />
-      <PlantList plants={displayedPlants} onDel={onDelete} setPrice={setNewPrice} setPlantId={setPlantId} />
+      <PlantList plants={displayedPlants} onDel={onDelete} onUpdatePrice={onUpdate} />
     </main>
   );
 }
