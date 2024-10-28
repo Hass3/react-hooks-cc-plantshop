@@ -27,10 +27,10 @@ function PlantPage() {
     setPlants(deletedPlant)
   }
   
-  function onUpdate(newPrice){
+  function onUpdate(updatedPlant){
     const updatedPlants = plants.map((plant)=>{
-      if(plant.id === newPrice.id){
-        return newPrice
+      if(plant.id === updatedPlant.id){
+        return updatedPlant
       }
       else{
         return plant
