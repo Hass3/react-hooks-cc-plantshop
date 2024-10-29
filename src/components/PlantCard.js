@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function PlantCard({ plant, onDel, onUpdatePrice }) {
   const [stock, setStock] = useState(false)
   const [formIsOn, setFormIsOn] = useState(false)
-  const [newPrice, setNewPrice] = useState('')
+  const [newPrice, setNewPrice] = useState(`${plant.price}`)
 
   function handleDelete() {
     fetch(`http://localhost:6001/plants/${plant.id}`, {
@@ -30,13 +30,12 @@ function PlantCard({ plant, onDel, onUpdatePrice }) {
       setFormIsOn(isOn=>!isOn)
     })
   }
-
   return (
     <>
       {formIsOn ? <form onSubmit={handlePriceChange}>
         <input placeholder="type new price" value={newPrice} onChange={e => setNewPrice(e.target.value)} />
         <button>Confirm Change</ button>
-      </form> : 
+      </form> : null}
         <li className="card" data-testid="plant-item">
         <img src={plant.image} alt={plant.name} />
         <h4>{plant.name}</h4>
@@ -45,7 +44,7 @@ function PlantCard({ plant, onDel, onUpdatePrice }) {
         <button onClick={() => setStock(stock => !stock)} className={!stock ? "primary" : ""}>{!stock ? "In Stock" : "Out of Stock"}</button>
         <button onClick={handleDelete} style={{ background: "red" }}>Delete</button>
         <button onClick={() => setFormIsOn(isOn => !isOn)}>Change Price</button>
-      </li>}
+      </li>
     </>
   );
 }
